@@ -1,4 +1,4 @@
-package fsparser
+package filesystem
 
 import (
 	"os"

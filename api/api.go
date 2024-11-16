@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gabrielroacueto/locc/fsparser"
+	"github.com/gabrielroacueto/locc/filesystem"
 	"github.com/gabrielroacueto/locc/llm"
 )
 
@@ -25,7 +25,7 @@ Please provide a comprehensive analysis based on the file structure.`
 // arrive. The print callback function will be used to pass the tokens as they stream back from the LLM server.
 func StreamDirectoryAnalysis(directory string, callback func(string)) error {
 
-	contents, err := fsparser.GetDirectoryContents(directory)
+	contents, err := filesystem.GetDirectoryContents(directory)
 	if err != nil {
 		return err
 	}
