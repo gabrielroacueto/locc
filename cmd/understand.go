@@ -1,6 +1,3 @@
-/*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -18,13 +15,26 @@ var understandCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		directory := args[0]
 
+		context, err := cmd.Flags().GetString("context")
+
+		if err != nil {
+			fmt.Printf("Error getting context flag: %s\n", err)
+			return
+		}
+
 		callback := func(chunk string) {
 			fmt.Print(chunk)
 		}
 
-		err := api.StreamDirectoryAnalysis(directory, callback)
+		if context == "" {
+			err = api.StreamDirectoryAnalysis(directory, callback)
+		} else {
+			err = api.StreamDirectoryAnalysisWithAdditionalContext(directory, callback, context)
+		}
 
-		fmt.Printf("Error when trying to stream directory analysys: %s\n", err)
+		if err != nil {
+			fmt.Printf("Error when trying to stream directory analysys: %s\n", err)
+		}
 	},
 }
 
@@ -39,5 +49,5 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// understandCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	understandCmd.Flags().String("context", "", "Additional context about the repository that can help make sense of it.")
 }

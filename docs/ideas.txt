@@ -1,6 +1,5 @@
 Ideas
 
-- Add cobra CLI
 - Ability to feed in user context before understand command.
 - Ability to understand a single file
 - Automatically generate "wiki" style documentation for the repo
