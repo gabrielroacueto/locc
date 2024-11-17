@@ -1,0 +1,8 @@
+Ideas
+
+- Add cobra CLI
+- Ability to feed in user context before understand command.
+- Ability to understand a single file
+- Automatically generate "wiki" style documentation for the repo
+- Given a file name and a function, generate context from the repo, then the project (maybe pull readme) and generate docs for function
+- Special convention to work with this tool (user dumps docs in wiki folder or something)
