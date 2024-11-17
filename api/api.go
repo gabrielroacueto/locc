@@ -29,12 +29,13 @@ and the following information about the project:
 
 %s
 
-Please analyze these files and explain:
-1. The main components/modules of the codebase
-2. How the code is organized and structure
-3. What's likely to be in each directory.
 
-Please provide a comprehensive analysis based on the file structure.`
+Please provide a comprehensive analysis based on the file structure. Do NOT go over specific files, but instead provide an overview of what the project does.`
+
+type RepoContext struct {
+	contents    string
+	userContext string
+}
 
 // Given a directory, generate the analysis of the structure and code in there. The output will be streamed to the streaming destination as tokens
 // arrive. The print callback function will be used to pass the tokens as they stream back from the LLM server.
@@ -70,4 +71,25 @@ func StreamDirectoryAnalysisWithAdditionalContext(directory string, callback fun
 	}
 
 	return nil
+}
+
+func GenerateRepoDocumentation(ctx RepoContext) (string, error) {
+	if ctx.contents == "" {
+		panic("We need repository contents to actually analyze.")
+	}
+
+	if ctx.userContext == "" {
+		panic("User context is required to generate documentation. File structure is not sufficient.")
+	}
+
+	var prompt string
+
+	context, err := llm.Generate(prompt)
+
+	if err != nil {
+		return "", err
+	}
+
+	return context, nil
+
 }
